@@ -3,29 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor Avanzado de Torneos Round Robin</title>
+    <title>Gestor de Torneos Round Robin</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="header-container">
-    <h1>🏆 Gestor de Torneos Competitivos</h1>
+    <h1>Gestor de Torneos Round Robin</h1>
     <button class="btn-new-tournament" id="btnNewTournament" onclick="confirmarNuevoTorneo()" style="display:none;">Nuevo Torneo</button>
 </div>
 
 <div class="container">
     <div id="phase1" class="phase active">
         <h2>Fase 1: Configuración del Torneo</h2>
+        
         <div class="form-group">
             <label for="playersInput">Introduce los Participantes (uno por línea):</label>
-            <textarea id="playersInput" placeholder="Jugador A&#10;Jugador B&#10;Jugador C..."></textarea>
+            <textarea id="playersInput" placeholder="Jugador A&#10;Jugador B..."></textarea>
         </div>
-        <div class="form-group">
-            <label for="sizeInput">Cantidad de jugadores por partida:</label>
-            <input type="number" id="sizeInput" value="4" min="2">
-            <div id="errorMsg" class="error"></div>
+        
+        <div class="form-layout-grid">
+            <div class="form-group">
+                <label for="sizeInput">Jugadores por partida (Máx):</label>
+                <input type="number" id="sizeInput" value="4" min="2">
+            </div>
+            <div class="form-group">
+                <label for="matchesInput">Partidas que jugará CADA uno:</label>
+                <input type="number" id="matchesInput" value="2" min="1">
+            </div>
         </div>
-        <button class="btn-primary" onclick="inicializarTorneo()">Generar Encuentros e Ir al Torneo</button>
+
+        <div class="info-box" id="theoreticalInfo">
+            <strong>Proyección del Torneo:</strong>
+            <div id="calcMinRecommended" class="info-line">Mínimo de partidas por jugador para cruce total: --</div>
+            <div id="calcTotalMatches" class="info-line">Total de partidas que se generarán en el torneo: --</div>
+        </div>
+
+        <div id="errorMsg" class="error"></div>
+        <button class="btn-primary" style="margin-top: 15px;" onclick="inicializarTorneo()">Generar Encuentros e Ir al Torneo</button>
     </div>
 
     <div id="phase2" class="phase">
@@ -41,6 +56,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre (Editable)</th>
+                                <th>Partidas</th>
                                 <th>Puntos</th>
                                 <th>1º</th>
                                 <th>2º</th>
@@ -76,9 +92,7 @@
     <div class="modal-content" style="max-width: 550px; text-align: center;">
         <h3 class="modal-title" style="font-size: 24px; margin-bottom: 5px;">🎉 ¡Torneo Finalizado! 🎉</h3>
         <p style="color: var(--text-muted); margin: 0; font-size: 14px;">Cuadro de honor oficial de la competición</p>
-        
         <div id="podiumContainer" class="podium-wrapper"></div>
-        
         <div class="modal-actions" style="justify-content: center; margin-top: 25px;">
             <button class="btn-cancel" style="background: var(--primary); color: white; padding: 10px 24px;" onclick="closePodiumModal()">Cerrar</button>
         </div>
