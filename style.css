@@ -1,0 +1,211 @@
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --background: #f3f4f6;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --success-hover: #059669;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.btn-new-tournament {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-new-tournament:hover {
+    background-color: #dc2626;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    min-height: 400px;
+}
+
+/* FASES */
+.phase { display: none; }
+.phase.active { display: block; }
+
+/* FASE 1: CONFIGURACIÓN */
+.form-group { margin-bottom: 20px; }
+label { display: block; font-weight: 600; margin-bottom: 8px; }
+textarea, input[type="number"] {
+    width: 100%; padding: 12px; border: 1px solid var(--border);
+    border-radius: 6px; font-size: 16px; box-sizing: border-box;
+}
+textarea { height: 150px; resize: vertical; }
+.btn-primary {
+    background-color: var(--primary); color: white; border: none;
+    padding: 14px; border-radius: 6px; font-size: 16px; font-weight: bold;
+    cursor: pointer; width: 100%; transition: background 0.2s;
+}
+.btn-primary:hover { background-color: var(--primary-hover); }
+.error { color: #dc2626; font-weight: 500; margin-top: 5px; display: none; }
+
+/* FASE 2: TORNEO Layout Dos Columnas */
+.tournament-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+@media (max-width: 850px) {
+    .tournament-layout { grid-template-columns: 1fr; }
+}
+
+.column-title {
+    font-size: 20px; border-bottom: 2px solid var(--border);
+    padding-bottom: 10px; margin-top: 0; margin-bottom: 15px;
+}
+
+/* Lista de Encuentros */
+.matches-list {
+    display: flex; flex-direction: column; gap: 12px;
+    max-height: 700px; overflow-y: auto; padding-right: 5px;
+}
+.match-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 15px; background: #fafafa; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.match-card:hover {
+    transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-color: var(--primary);
+}
+.match-card.played { border-left: 5px solid var(--success); }
+.match-header {
+    display: flex; justify-content: space-between; font-weight: bold;
+    margin-bottom: 8px; color: var(--primary); font-size: 14px;
+}
+.match-status { font-size: 12px; padding: 2px 6px; border-radius: 4px; }
+.match-card.played .match-status { background: #d1fae5; color: #065f46; }
+.match-card:not(.played) .match-status { background: #f3f4f6; color: #374151; }
+
+.match-players-grid { display: flex; flex-direction: column; gap: 4px; }
+.match-player-row {
+    display: flex; justify-content: space-between; font-size: 14px;
+    padding: 4px 0; border-bottom: 1px dashed #f0f0f0;
+}
+.match-player-row:last-child { border-bottom: none; }
+.badge-pos {
+    background: #e0e7ff; color: #4338ca; padding: 1px 6px;
+    border-radius: 4px; font-size: 11px; font-weight: bold;
+}
+
+/* Tabla de Clasificación */
+.leaderboard-table {
+    width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;
+    margin-bottom: 20px;
+}
+.leaderboard-table th, .leaderboard-table td {
+    padding: 10px; border-bottom: 1px solid var(--border);
+}
+.leaderboard-table th { background-color: #f9fafb; font-weight: 600; }
+.input-inline-name {
+    border: 1px solid transparent; background: transparent;
+    font-size: 14px; font-weight: 500; width: 100%; padding: 4px;
+    border-radius: 4px; color: var(--text);
+}
+.input-inline-name:focus {
+    border-color: var(--primary); background: white; outline: none;
+}
+
+.btn-success-action {
+    background-color: var(--success); color: white; border: none;
+    padding: 12px 20px; border-radius: 6px; font-size: 16px; font-weight: bold;
+    cursor: pointer; width: 100%; transition: background 0.2s;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+.btn-success-action:hover { background-color: var(--success-hover); }
+
+/* POPUP / MODAL BASE */
+.modal-overlay {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); display: none; justify-content: center;
+    align-items: center; z-index: 1000;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+    background: white; padding: 25px; border-radius: 10px;
+    max-width: 500px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.modal-title { margin-top: 0; color: var(--primary); font-size: 18px; margin-bottom: 15px;}
+.modal-row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;
+    align-items: center; margin-bottom: 10px;
+}
+.modal-row label { margin-bottom: 0; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.modal-actions {
+    display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;
+}
+.btn-cancel {
+    background: #e5e7eb; border: none; padding: 8px 16px;
+    border-radius: 6px; cursor: pointer; font-weight: 500;
+}
+.btn-save {
+    background: var(--primary); color: white; border: none;
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold;
+}
+
+/* DISEÑO DEL PODIO EXCLUSIVO */
+.podium-wrapper {
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: 15px; margin: 35px 0 15px 0; height: 210px;
+}
+.podium-step {
+    display: flex; flex-direction: column; align-items: center;
+    width: 130px; border-radius: 8px 8px 0 0; padding: 12px 8px;
+    box-sizing: border-box; text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.podium-step.first {
+    height: 180px; background: #fef08a; border: 2px solid #eab308;
+}
+.podium-step.second {
+    height: 145px; background: #f3f4f6; border: 2px solid #9ca3af;
+}
+.podium-step.third {
+    height: 115px; background: #ffedd5; border: 2px solid #ea580c;
+}
+.podium-medal { font-size: 28px; margin-bottom: 6px; }
+.podium-name {
+    font-weight: bold; font-size: 14px; color: #111827;
+    width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.podium-pts { font-weight: 800; font-size: 15px; margin-top: 2px; }
+.podium-step.first .podium-pts { color: #a16207; }
+.podium-breakdown { font-size: 11px; color: #4b5563; margin-top: 5px; font-weight: 500; }
